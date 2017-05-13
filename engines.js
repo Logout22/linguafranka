@@ -53,3 +53,5 @@ function loadFrames() {
     }
     assembleUrls();
 }
+
+$('#search').click(loadFrames);
