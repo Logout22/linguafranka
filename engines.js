@@ -31,6 +31,52 @@ const services = [{
             translationUrls[srcLng][dstLng] +
             '/' + word;
     }
+},
+{
+    name: 'linguee',
+    generateLookupUrl: function(srcLng,dstLng,word) {
+        const translationUrls = {
+            'Deutsch': {
+                'English': 'deutsch-englisch',
+                'Français': 'deutsch-franzoesisch',
+                'Italiano': 'deutsch-italienisch',
+                'Español (Si!)': 'deutsch-spanisch'
+            }
+        };
+        return '//www.linguee.de/' +
+            translationUrls[srcLng][dstLng] +
+            '/search?source=auto&query=' + word;
+    }
+},
+{
+    name: 'dictcc',
+    generateLookupUrl: function(srcLng,dstLng,word) {
+        const translationUrls = {
+            'Deutsch': {
+                'English': 'deen',
+                'Français': 'defr',
+                'Italiano': 'deit',
+                'Español (Si!)': 'dees'
+            }
+        };
+        return '//' + translationUrls[srcLng][dstLng] + '.dict.cc/?s=' + word;
+    }
+},
+{
+    name: 'dictindustry',
+    generateLookupUrl: function(srcLng,dstLng,word) {
+        const translationUrls = {
+            'Deutsch': {
+                'English': 'deutsch-englisch',
+                'Français': 'deutsch-französisch',
+                'Italiano': 'deutsch-italienisch',
+                'Español (Si!)': 'deutsch-spanisch'
+            }
+        };
+        return '//de.dictindustry.com/' +
+            translationUrls[srcLng][dstLng] +
+            '/' + word;
+    }
 }
 ];
 
