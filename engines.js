@@ -3,7 +3,7 @@
 const services = [
     {
         name: 'pons',
-        baseUrl: 'http://de.pons.com/%C3%BCbersetzung?l=',
+        baseUrl: '//de.pons.com/%C3%BCbersetzung?l=',
         translationUrls: {
             'Deutsch' : {
                 'English' : 'deen',
@@ -16,7 +16,7 @@ const services = [
     },
     {
         name: 'leo',
-        baseUrl: 'http://dict.leo.org/',
+        baseUrl: '//dict.leo.org/',
         translationUrls: {
             'Deutsch' : {
                 'English' : 'englisch-deutsch',
