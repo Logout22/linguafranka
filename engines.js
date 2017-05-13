@@ -46,7 +46,6 @@ function assembleUrls() {
         const srcLng = $('#srcLng').val();
         const dstLng = $('#dstLng').val();
         const word = encodeURIComponent($('#word').val());
-        console.log("Loading " + targetUrl + " for service " + service.name);
         const targetUrl = service.generateLookupUrl(srcLng, dstLng, word);
         $('#'+service.name+'Frame').attr('src', targetUrl);
     });
