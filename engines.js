@@ -3,29 +3,35 @@
 const services = [
     {
         name: 'pons',
-        baseUrl: '//de.pons.com/%C3%BCbersetzung?l=',
-        translationUrls: {
-            'Deutsch' : {
-                'English' : 'deen',
-                'Français' : 'defr',
-                'Italiano' : 'deit',
-                'Español (Si!)' : 'dees'
-            }
-        },
-        lookupUrl : '&q='
+        generateLookupUrl: function(srcLng, dstLng, word) {
+            const translationUrls = {
+                'Deutsch' : {
+                    'English' : 'deen',
+                    'Français' : 'defr',
+                    'Italiano' : 'deit',
+                    'Español (Si!)' : 'dees'
+                }
+            };
+            return '//de.pons.com/%C3%BCbersetzung?l=' +
+                translationUrls[srcLng][dstLng] +
+                '&q=' + word;
+        }
     },
     {
         name: 'leo',
-        baseUrl: '//dict.leo.org/',
-        translationUrls: {
-            'Deutsch' : {
-                'English' : 'englisch-deutsch',
-                'Français' : 'französisch-deutsch',
-                'Italiano' : 'italienisch-deutsch',
-                'Español (Si!)' : 'spanisch-deutsch'
-            }
-        },
-        lookupUrl : '/'
+        generateLookupUrl: function(srcLng, dstLng, word) {
+            const translationUrls = {
+                'Deutsch' : {
+                    'English' : 'englisch-deutsch',
+                    'Français' : 'französisch-deutsch',
+                    'Italiano' : 'italienisch-deutsch',
+                    'Español (Si!)' : 'spanisch-deutsch'
+                }
+            };
+            return '//dict.leo.org/' +
+                translationUrls[srcLng][dstLng] +
+                '/' + word;
+        }
     }
 ];
 
@@ -39,10 +45,9 @@ function assembleUrls() {
     services.forEach(function(service) {
         const srcLng = $('#srcLng').val();
         const dstLng = $('#dstLng').val();
-        const translationUrl = service.translationUrls[srcLng][dstLng];
         const word = encodeURIComponent($('#word').val());
-        const targetUrl = service.baseUrl + translationUrl + service.lookupUrl + word;
         console.log("Loading " + targetUrl + " for service " + service.name);
+        const targetUrl = service.generateLookupUrl(srcLng, dstLng, word);
         $('#'+service.name+'Frame').attr('src', targetUrl);
     });
 }
