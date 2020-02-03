@@ -3,49 +3,91 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Results extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null,
+            isLoaded: false,
+            items: []
+        };
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:5000/words")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result.items
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     render() {
-        return (
-            <div>
-            {/* TODO */}
-            </div>
-        );
+        const { error, isLoaded, items } = this.state;
+        if (error) {
+            return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <ul>
+                {items.map(item => (
+                    <li>
+                    {item.origin} {item.translation}
+                    </li>
+                ))}
+                </ul>
+            );
+        }
     }
 }
 
-class QueryForm extends React.Component {
-    submitSearch()
-    {
-    }
-
-    render() {
-        return (
-            <div>
-            <p>What do you want to look up?</p>
-            <p><input type="text" id="word" /></p>
-            <p>
-            <select id="srcLng" size="1">
-            <option>Deutsch</option>
-            </select>
-            ↔
-            <select id="dstLng" size="1">
-            <option>English</option>
-            <option>Français</option>
-            <option>Italiano</option>
-            <option>Español</option>
-            </select>
-            </p>
-            <p><button type="button" onClick={() => this.submitSearch()}>Search</button></p>
-            </div>
-        );
-    }
+function QueryForm(props) {
+    return (
+        <div>
+        <p>What do you want to look up?</p>
+        <p><input type="text" id="word" /></p>
+        <p>
+        <select id="srcLng" size="1">
+        <option>Deutsch</option>
+        </select>
+        ↔
+        <select id="dstLng" size="1">
+        <option>English</option>
+        <option>Français</option>
+        <option>Italiano</option>
+        <option>Español</option>
+        </select>
+        </p>
+        <p><button type="button" onClick={props.onClick}>Search</button></p>
+        </div>
+    );
 }
 
 class Client extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    submitSearch() {
+        this.setState({ results: (<Results />) });
+    }
+
     render() {
         return (
             <div>
-            <QueryForm />
-            <Results />
+            <QueryForm onClick={() => this.submitSearch()}/>
+            {this.state.results}            
             </div>
         );
     }
