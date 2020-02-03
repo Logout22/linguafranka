@@ -13,9 +13,13 @@ class Results extends React.Component {
 }
 
 class QueryForm extends React.Component {
+    submitSearch()
+    {
+    }
+
     render() {
         return (
-            <form>
+            <div>
             <p>What do you want to look up?</p>
             <p><input type="text" id="word" /></p>
             <p>
@@ -27,11 +31,11 @@ class QueryForm extends React.Component {
             <option>English</option>
             <option>Français</option>
             <option>Italiano</option>
-            <option>Español (Si!)</option>
+            <option>Español</option>
             </select>
             </p>
-            <p><button type="button" id="search">Search</button></p>
-            </form>
+            <p><button type="button" onClick={() => this.submitSearch()}>Search</button></p>
+            </div>
         );
     }
 }
