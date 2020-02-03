@@ -13,7 +13,7 @@ class Results extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:5000/words")
+        fetch("http://localhost:8080/words")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -41,8 +41,8 @@ class Results extends React.Component {
             return (
                 <ul>
                 {items.map(item => (
-                    <li>
-                    {item.origin} {item.translation}
+                    <li key={`{item.origin}_{item.translation}`}>
+                    {item.origin}: {item.translation}
                     </li>
                 ))}
                 </ul>
